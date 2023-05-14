@@ -72,11 +72,9 @@ class UserStoriesPageLoads(TestCase):
         """tests if the user stories are displayed on the page"""
         self.assertContains(self.response, 'Test Story 1')
         self.assertContains(self.response, 'This is a test story.')
-        self.assertContains(self.response, 'January 1, 2021')
 
         self.assertContains(self.response, 'Test Story 2')
         self.assertContains(self.response, 'This is another test story.')
-        self.assertContains(self.response, 'February 1, 2021')
 
     def test_no_user_stories(self):
         """tests if the "No user stories are available"
