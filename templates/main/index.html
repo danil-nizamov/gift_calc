@@ -21,19 +21,12 @@
 
             <label for="eventtype">Событие:</label>
             <select name="eventtype" id="eventtype" onchange="calculateValue()">
-                <option value="1">День рождения</option>
-                <option value="5">Юбилей</option>
-                <option value="10">Свадьба</option>
             </select>
             <br>
 
             <label for="relationship">Степень родства:</label>
             <select name="relationship" id="relationship" onchange="calculateValue()">
-                <option value="1">Приятель</option>
-                <option value="2">Друг</option>
-                <option value="3">Член семьи</option>
             </select>
-            <br>
 
         </form>
 
@@ -41,6 +34,30 @@
     </div>
 
     <script>
+        const eventTypes = {
+            1: "День рождения",
+            5: "Юбилей",
+            10: "Свадьба"
+        };
+
+        const relationships = {
+            1: "Приятель",
+            2: "Друг",
+            3: "Член семьи"
+        };
+
+        function populateSelectOptions(selectElement, options) {
+            for (const value in options) {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = options[value];
+                selectElement.appendChild(option);
+            }
+        }
+
+        populateSelectOptions(document.getElementById("eventtype"), eventTypes);
+        populateSelectOptions(document.getElementById("relationship"), relationships);
+
         function updateSalaryValue(val) {
             const salary = calculateSalary(val);
             document.getElementById("salary-value").textContent = salary < 600000 ? salary : "∞";
