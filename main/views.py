@@ -14,3 +14,6 @@ class UserStoryListView(ListView):
 class CalcView(TemplateView):
     template_name = "main/index.html"
 
+
+class MathModelView(TemplateView):
+    template_name = "main/math_model.html"

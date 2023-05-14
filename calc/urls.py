@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.CalcView.as_view()),
     path('user_stories/', views.UserStoryListView.as_view()),
+    path('math_model/', views.MathModelView.as_view())
 ]
