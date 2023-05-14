@@ -1,0 +1,88 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <button class="info-button" id="info-button" onclick="toggleInfoPopup(event)">
+        <div class="circle">?</div>
+        <span class="info-text">Как это работает?</span>
+    </button>
+    <div class="info-popup" id="info-popup">
+        <p>Мы взяли <a href="emptylink">социологический опрос Левады</a> и
+                построили <a href="math_model/">математическую модель</a>, которая определяет
+                адекватную сумму подарка по заданным параметрам. Помните, что каждый человек
+                индивидуален и пользуйтесь этим сайтом только для определения ориентировочной суммы.
+                <a href="user_stories/">Примеры использования</a></p>
+    </div>
+    <div class="container">
+        <form>
+            <label for="salary">Зарплата:</label>
+            <input type="range" min="0" max="100" value="34" class="slider" id="salary" name="salary" oninput="updateSalaryValue(this.value)">
+            <span id="salary-value">70000</span>
+            <br>
+
+            <label for="eventtype">Событие:</label>
+            <select name="eventtype" id="eventtype" onchange="calculateValue()">
+                <option value="1">День рождения</option>
+                <option value="5">Юбилей</option>
+                <option value="10">Свадьба</option>
+            </select>
+            <br>
+
+            <label for="relationship">Степень родства:</label>
+            <select name="relationship" id="relationship" onchange="calculateValue()">
+                <option value="1">Приятель</option>
+                <option value="2">Друг</option>
+                <option value="3">Член семьи</option>
+            </select>
+            <br>
+
+        </form>
+
+        <h3>Средняя стоимость подарка: <span id="calculated-value">10000</span></h3>
+    </div>
+
+    <script>
+        function updateSalaryValue(val) {
+            const salary = calculateSalary(val);
+            document.getElementById("salary-value").textContent = salary < 600000 ? salary : "∞";
+            calculateValue();
+        }
+
+        function calculateSalary(sliderValue) {
+            let salary;
+            if (sliderValue <= 75) {
+                salary = 10000 + (110000 * sliderValue / 75);
+            } else {
+                salary = 120000 + (480000 * (sliderValue - 75) / 25);
+            }
+            return Math.round(salary / 1000) * 1000;
+        }
+
+        function calculateValue() {
+            const sliderValue = document.getElementById("salary").value;
+            const salary = calculateSalary(sliderValue);
+            const eventType = document.getElementById("eventtype").value;
+            const relationship = document.getElementById("relationship").value;
+
+            const value = salary * (Number(eventType) + Number(relationship));
+            document.getElementById("calculated-value").textContent = value;
+        }
+
+        function toggleInfoPopup(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up to the document
+            const infoPopup = document.getElementById("info-popup");
+            if (infoPopup.style.display === "none" || infoPopup.style.display === "") {
+                infoPopup.style.display = "block";
+            } else {
+                infoPopup.style.display = "none";
+            }
+        }
+
+        document.addEventListener("click", function () {
+            const infoPopup = document.getElementById("info-popup");
+            infoPopup.style.display = "none";
+        });
+
+        // Initialize the salary value based on the default slider value
+        updateSalaryValue(document.getElementById("salary").value);
+    </script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <a href="/" class="back-arrow">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path d="M20.285 11H6.462l4.228-4.228-1.771-1.771L1.714 12l7.205 7.205 1.771-1.771L6.462 13h13.823v-2z"/>
+        </svg>
+    </a>
+    <div class="user-stories-container">
+        {% for story in user_stories %}
+            <div class="user-story">
+                <h2>{{ story.title }}</h2>
+                <p>{{ story.content|linebreaks}}</p>
+                <p class="date">{{ story.created_at|date:"F j, Y" }}</p>
+            </div>
+        {% empty %}
+            <p>No user stories are available at the moment.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
