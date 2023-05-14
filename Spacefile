@@ -1,9 +1,0 @@
-# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
-v: 0
-micros:
-  - name: calc
-    src: ./
-    engine: python3.9
-    primary: true
-    commands:
-      - python3.9 manage.py runserver
