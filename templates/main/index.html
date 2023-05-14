@@ -80,7 +80,7 @@
             const eventType = document.getElementById("eventtype").value;
             const relationship = document.getElementById("relationship").value;
 
-            const value = salary * (Number(eventType) + Number(relationship));
+            const value = 0.01 * salary * Number(eventType) * Number(relationship);
             document.getElementById("calculated-value").textContent = value;
         }
 
